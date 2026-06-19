@@ -1,0 +1,42 @@
+[
+  {
+    "event": "PostToolUse",
+    "matcher": "Edit|Write|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/showcase.ts motion-audit"
+      }
+    ]
+  },
+  {
+    "event": "PostToolUse",
+    "matcher": "Edit|Write|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/showcase.ts page-performance"
+      }
+    ]
+  },
+  {
+    "event": "PostToolUse",
+    "matcher": "Edit|Write|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/showcase.ts section-a11y"
+      }
+    ]
+  },
+  {
+    "event": "Stop",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/showcase.ts brief-drift-check"
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "event": "PreToolUse",
+    "matcher": "Bash",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts command standard"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts lint-config"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts secret standard"
+      }
+    ]
+  }
+]

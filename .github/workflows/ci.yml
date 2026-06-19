@@ -1,0 +1,34 @@
+name: CI
+
+# Gates déterministes (repo-only) sur chaque push/PR vers main.
+# NB : `bun run check`/`quality`/`test` complet ne tournent PAS ici car ils dépendent
+# d'état LOCAL absent d'un runner neuf — l'index mémoire `~/.claude/assistant-index.db`,
+# le corpus `~/.claude/corpus`, et la library de skills (`SKILL_LIBRARY_DIR`, symlink local).
+# Le CI couvre donc les gates 100% reproductibles : typecheck strict + smoke de génération.
+# Les gates complets restent à lancer en local (`bun run quality`).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.12"
+
+      - name: Install deps (@types/bun)
+        run: bun install
+
+      - name: Typecheck strict (tsc --noEmit, zéro erreur)
+        run: bunx tsc --noEmit
+
+      - name: Smoke — génération .claude/ + .codex/ end-to-end
+        run: bun tests/smoke.ts

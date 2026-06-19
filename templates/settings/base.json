@@ -1,0 +1,16 @@
+{
+  "_comment": "Optional top-level settings for .claude/settings.local.json — merge with hook arrays during INIT",
+
+  "prUrlTemplate": "{{PR_URL_TEMPLATE}}",
+
+  "CLAUDE_CODE_HIDE_CWD": "1",
+
+  "permissions": {
+    "allow": [],
+    "deny": []
+  },
+
+  "autoMode": {
+    "$defaults": true
+  }
+}

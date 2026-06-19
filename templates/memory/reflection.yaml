@@ -1,0 +1,23 @@
+# reflection.yaml — Reflexion pattern (arXiv 2303.11366)
+# One file per significant session (audit, init, refactor).
+# The memory pattern scan reads these to detect recurring lessons.
+
+session: "{{SESSION_TYPE}}-{{PROJECT_SLUG}}"   # e.g. "audit-myapp", "init-blog"
+date: "{{YYYY-MM-DD}}"
+duration_minutes: 0
+
+score_before: null   # Score AUDIT pre-session (0-10) if applicable
+score_after: null    # Score AUDIT post-session
+
+what_worked:
+  - "Specific action that delivered value — be concrete"
+
+what_failed:
+  - "Specific action that backfired, and how it manifested"
+
+lesson: |
+  One-sentence takeaway phrased as a generalizable rule.
+  Starts with verb. Example: "Always check package.json React version before
+  suggesting RSC patterns — a past session wasted 20 min on a React 17 codebase."
+
+tags: []   # e.g. [react, vercel, audit, memory-drift]

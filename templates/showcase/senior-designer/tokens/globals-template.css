@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/*
+ * Senior Designer — globals.css template
+ * Replace {{TOKENS}} via design-tokens-gen or by hand.
+ *
+ * Doctrine:
+ *   - 7 colors max
+ *   - 3 font families max (display + sans + mono)
+ *   - radius differentiated (button 6 / card 12 / image 0 / pill 999)
+ *   - 3 shadow elevations
+ *   - 4 named easings
+ *   - 3 motion durations
+ */
+
+@theme {
+  /* Colors — keep under 8 */
+  --color-ink: #0e0c0a;
+  --color-ink-soft: #1c1814;
+  --color-paper: #efe6d4;
+  --color-paper-deep: #e6dac1;
+  --color-accent: #a8351a;
+  --color-accent-soft: #b94d2c;
+  --color-neutral-quiet: #6a5d4c;
+
+  /* Fonts — one display, one sans, one mono */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-general-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Spacing — modular scale 1.25 from 8px */
+  --space-1: 8px;
+  --space-2: 10px;
+  --space-3: 13px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 25px;
+  --space-7: 31px;
+  --space-8: 39px;
+  --space-9: 49px;
+  --space-10: 61px;
+
+  /* Radius — differentiated per element type */
+  --radius-image: 0;
+  --radius-button: 6px;
+  --radius-card: 12px;
+  --radius-pill: 999px;
+
+  /* Shadow — 3 elevations */
+  --shadow-flat: 0 1px 0 0 rgb(0 0 0 / 0.04);
+  --shadow-card: 0 8px 24px -12px rgb(0 0 0 / 0.12), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-hover: 0 16px 40px -16px rgb(0 0 0 / 0.18), 0 4px 8px -4px rgb(0 0 0 / 0.08);
+
+  /* Easings — named for intent */
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.5, 0, 0, 1.25);
+
+  /* Durations */
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  font-feature-settings: "ss01", "ss02";
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Display utility classes — Fraunces axes exploited */
+.serif-xl {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 0;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
+
+.serif-italic {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 90, "WONK" 1;
+  font-style: italic;
+}
+
+.serif-mid {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 60, "WONK" 0;
+  letter-spacing: -0.02em;
+}
+
+.italic-wonky {
+  font-style: italic;
+  font-variation-settings: "opsz" 96, "SOFT" 50, "WONK" 1;
+}
+
+.mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
+.caps { text-transform: uppercase; letter-spacing: 0.22em; }
+
+/* Photo treatments — printed warmth */
+.photo-warm { filter: saturate(0.85) sepia(0.06) contrast(1.05); }
+.photo-cinema { filter: saturate(0.7) contrast(1.1) brightness(0.96); }
+.photo-bw { filter: grayscale(1) contrast(1.08); }
+
+/* Grain — SVG turbulence, mix-blend multiply */
+.grain-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='1' stitchTiles='stitch' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

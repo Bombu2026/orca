@@ -1,0 +1,101 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/dx.ts session-digest", "timeout": 3 }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "bun ~/.claude/skills/assistant/scripts/memory-corrections.ts capture", "timeout": 3 },
+          { "type": "command", "command": "bun .claude/hooks/dx.ts skill-suggest" },
+          { "type": "command", "command": "bun ~/.claude/skills/assistant/scripts/recall-auto.ts", "timeout": 4 }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/dx.ts notify-waiting" }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/dx.ts notify-compact" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/security.ts command standard" },
+          { "type": "command", "command": "bun .claude/hooks/dx.ts git-push-reminder" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/security.ts lint-config" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/security.ts secret standard" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "bun ~/.claude/skills/assistant/scripts/missions/scope-fence.ts" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bun ~/.claude/skills/assistant/scripts/missions/scope-fence.ts" }
+        ]
+      },
+      {
+        "matcher": "mcp__mcpvault__.*|mcp__claude_ai_Google_Drive__.*|mcp__claude_ai_Gmail__.*",
+        "hooks": [
+          { "type": "command", "command": "bun ~/.claude/skills/assistant/scripts/missions/scope-fence.ts" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/quality.ts typecheck-file" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "bun .claude/hooks/quality.ts console-log-check" }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/skills/assistant/scripts/auto-memory.sh", "timeout": 3 }
+        ]
+      }
+    ]
+  }
+}

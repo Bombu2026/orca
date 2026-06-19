@@ -1,0 +1,13 @@
+[
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/scripts/spec-gate.ts",
+        "timeout": 5
+      }
+    ]
+  }
+]

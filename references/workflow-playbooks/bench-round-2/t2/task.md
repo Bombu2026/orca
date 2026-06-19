@@ -1,0 +1,1 @@
+Exporte nextBillingDate(startISO: string, months: number): string (date ISO "YYYY-MM-DD"). Ajoute `months` mois calendaires à la date de départ. Calcule en UTC. Si le jour de départ n'existe pas dans le mois cible, ramène au DERNIER jour du mois cible (ex: 31 jan + 1 mois → 28 fév).

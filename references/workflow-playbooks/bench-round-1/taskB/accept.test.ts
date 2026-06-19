@@ -1,0 +1,10 @@
+import { test, expect } from "bun:test";
+import { Cart } from "./SUT";
+test("subtotal", () => { const c = new Cart(); c.addItem("A",1000,2); c.addItem("B",500,1); expect(c.subtotal()).toBe(2500); });
+test("accumulate", () => { const c = new Cart(); c.addItem("A",1000); c.addItem("A",1000); expect(c.subtotal()).toBe(2000); });
+test("setQty0 removes", () => { const c = new Cart(); c.addItem("A",1000,3); c.setQty("A",0); expect(c.subtotal()).toBe(0); });
+test("percent", () => { const c = new Cart(); c.addItem("A",2500,1); c.applyCoupon("SAVE10"); expect(c.total()).toBe(2250); });
+test("fixed", () => { const c = new Cart(); c.addItem("A",2500,1); c.applyCoupon("MINUS500"); expect(c.total()).toBe(2000); });
+test("fixed clamp", () => { const c = new Cart(); c.addItem("A",300,1); c.applyCoupon("MINUS500"); expect(c.total()).toBe(0); });
+test("half", () => { const c = new Cart(); c.addItem("A",2500,1); c.applyCoupon("HALF"); expect(c.total()).toBe(1250); });
+test("invalid throws", () => { const c = new Cart(); expect(() => c.applyCoupon("NOPE")).toThrow(); });

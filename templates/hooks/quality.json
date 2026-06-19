@@ -1,0 +1,22 @@
+[
+  {
+    "event": "PostToolUse",
+    "matcher": "Edit|Write|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/quality.ts typecheck-file"
+      }
+    ]
+  },
+  {
+    "event": "Stop",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/quality.ts console-log-check"
+      }
+    ]
+  }
+]

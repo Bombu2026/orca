@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "channels": {
+    "inline": true,
+    "notify": true,
+    "digest": true
+  },
+  "noise_threshold": "important",
+  "language": "fr"
+}

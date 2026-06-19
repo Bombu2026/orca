@@ -1,0 +1,53 @@
+[
+  {
+    "event": "UserPromptSubmit",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/dx.ts skill-suggest"
+      }
+    ]
+  },
+  {
+    "event": "SessionStart",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/dx.ts session-digest",
+        "timeout": 3
+      }
+    ]
+  },
+  {
+    "event": "Notification",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/dx.ts notify-waiting"
+      }
+    ]
+  },
+  {
+    "event": "PreCompact",
+    "matcher": "auto",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/dx.ts notify-compact"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Bash",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/dx.ts git-push-reminder"
+      }
+    ]
+  }
+]

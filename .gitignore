@@ -1,0 +1,36 @@
+node_modules/
+.DS_Store
+*.lock
+.claude/scheduled_tasks.lock
+
+.mentor/
+.playwright-mcp/
+.codex/observability/
+
+# Secrets and local credentials
+.env
+.env.local
+.env.*
+credentials/
+secrets/
+*.pem
+*.key
+
+# Heavy/local artifacts (audit 2026-06-01)
+*.log
+*.db
+*.sql
+.paperclip/
+logs/
+SHIP_PROOF.json
+
+# Generated output artifacts (tool outputs run against this repo itself) — never tracked.
+LIFECYCLE.md
+QUALITY_SCORE.md
+ORCA_PROOF.json
+
+# Per-user Claude Code config & local memory (machine-specific, never shared).
+.claude/settings.local.json
+.claude/memory/
+/MEMORY.md
+/memory/

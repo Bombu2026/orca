@@ -1,0 +1,10 @@
+import { test, expect } from "bun:test";
+import { median } from "./SUT";
+test("odd", () => expect(median([3,1,2])).toBe(2));
+test("numeric not lexicographic", () => expect(median([10,2,1])).toBe(2));
+test("even", () => expect(median([1,2,3,4])).toBe(2.5));
+test("empty NaN", () => expect(Number.isNaN(median([]))).toBe(true));
+test("single", () => expect(median([5])).toBe(5));
+test("negatives", () => expect(median([-5,-1,-3])).toBe(-3));
+test("no mutation", () => { const a=[3,1,2]; median(a); expect(a).toEqual([3,1,2]); });
+test("big numeric", () => expect(median([100,25,3,9,40])).toBe(25));

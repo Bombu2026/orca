@@ -1,0 +1,38 @@
+{
+  "name": "orca",
+  "version": "1.0.0",
+  "description": "ORCA — a permanent architect for AI-assisted projects (a Claude Code skill).",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "check": "bun scripts/self-check.ts",
+    "audit": "bun scripts/audit-project.ts .",
+    "test": "bun tests/smoke.ts && bun tests/install-toolkit.ts && bun tests/ship-check-gate.ts && bun tests/hooks-runtime.ts && bun tests/memory-corrections.ts && bun tests/validation-layer.ts && bun tests/memory-bridge.ts && bun tests/assistant-proof.ts && bun tests/lifecycle-audit.ts && bun tests/missions.ts && bun tests/autonomy.ts && bun tests/onboarding.ts && bun tests/rule-of-two.ts && bun tests/loop-controller.ts && bun tests/recall-auto.ts && bun tests/null-agent.ts && bun tests/spec-gate.ts && bun tests/scan-memories.ts && bun tests/orchestration.ts",
+    "quality": "bun scripts/quality-gate.ts",
+    "ship:check": "bun scripts/ship-check-gate.ts",
+    "memory:corrections": "bun scripts/memory-corrections.ts",
+    "memory:recall": "bun scripts/recall.ts",
+    "assistant:proof": "bun scripts/assistant-proof.ts",
+    "validate:templates": "bun scripts/validation-layer.ts templates",
+    "validate:ecosystem": "bun scripts/validation-layer.ts ecosystem",
+    "validate:all": "bun scripts/validation-layer.ts all",
+    "strategy:select": "bun scripts/strategy-select.ts",
+    "install:toolkit": "bun scripts/install-toolkit.ts",
+    "install:toolkit:dry": "bun scripts/install-toolkit.ts --dry-run",
+    "mcp:hygiene": "bun scripts/mcp-hygiene.ts",
+    "plugin:hygiene": "bun scripts/plugin-hygiene.ts",
+    "status": "bun scripts/status.ts",
+    "organise": "bun scripts/organise.ts",
+    "lifecycle": "bun scripts/lifecycle-audit.ts",
+    "missions": "bun scripts/missions/registry.ts list",
+    "missions:validate": "bun scripts/missions/registry.ts validate",
+    "scope": "bun scripts/lib/scope.ts",
+    "workflow:bench": "bun scripts/workflow-bench.ts",
+    "workflow:select": "bun scripts/workflow-bench.ts select",
+    "memory:bridge": "bun scripts/index-memories.ts",
+    "clean": "bun scripts/clean.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14"
+  }
+}

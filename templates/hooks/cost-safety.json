@@ -1,0 +1,18 @@
+[
+  {
+    "event": "PreToolUse",
+    "matcher": "Bash",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/cost-safety.ts bulk-api-guard",
+        "timeout": 5
+      },
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/cost-safety.ts agent-spawn-guard",
+        "timeout": 5
+      }
+    ]
+  }
+]

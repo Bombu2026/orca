@@ -1,0 +1,10 @@
+import { test, expect } from "bun:test";
+import { computeTotal as f } from "./SUT";
+const I = (p:number,q:number)=>({priceCents:p,qty:q});
+test("plain", () => expect(f({items:[I(1000,1)],loyaltyTier:"none"})).toBe(1000));
+test("percent+silver", () => expect(f({items:[I(1000,1)],coupon:{type:"percent",value:10},loyaltyTier:"silver"})).toBe(855));
+test("cap up: half+gold", () => expect(f({items:[I(1000,1)],coupon:{type:"percent",value:50},loyaltyTier:"gold"})).toBe(500));
+test("fixed+none", () => expect(f({items:[I(1000,1)],coupon:{type:"fixed",value:300},loyaltyTier:"none"})).toBe(700));
+test("fixed over -> cap to 50%", () => expect(f({items:[I(400,1)],coupon:{type:"fixed",value:500},loyaltyTier:"none"})).toBe(200));
+test("gold only", () => expect(f({items:[I(1000,1)],loyaltyTier:"gold"})).toBe(900));
+test("qty", () => expect(f({items:[I(500,2),I(250,2)],loyaltyTier:"none"})).toBe(1500));

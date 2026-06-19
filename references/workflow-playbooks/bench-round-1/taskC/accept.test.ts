@@ -1,0 +1,10 @@
+import { test, expect } from "bun:test";
+import { greet } from "./a"; import { isAdult } from "./b"; import { label } from "./c"; import { nameLen } from "./d";
+import * as api from "./api";
+test("greet", () => expect(greet(1)).toBe("Hi User1"));
+test("isAdult", () => expect(isAdult(0)).toBe(true));
+test("label", () => expect(label(2)).toBe("User2 (22)"));
+test("nameLen", () => expect(nameLen(3)).toBe(5));
+test("fetchUser exported", () => expect(typeof (api as any).fetchUser).toBe("function"));
+test("getUser gone", () => expect((api as any).getUser).toBeUndefined());
+test("shape", () => { const u = (api as any).fetchUser(5); expect(u.fullName).toBe("User5"); expect(u.id).toBe(5); expect(u.age).toBe(25); });

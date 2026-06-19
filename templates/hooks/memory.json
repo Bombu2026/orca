@@ -1,0 +1,13 @@
+[
+  {
+    "event": "UserPromptSubmit",
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun ~/.claude/skills/assistant/scripts/recall-auto.ts",
+        "timeout": 4
+      }
+    ]
+  }
+]

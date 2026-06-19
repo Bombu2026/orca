@@ -1,0 +1,52 @@
+[
+  {
+    "event": "PreToolUse",
+    "matcher": "Bash",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts command strict"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Bash",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts destructive-git"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts lint-config"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts secret strict"
+      }
+    ]
+  },
+  {
+    "event": "PreToolUse",
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bun .claude/hooks/security.ts env-file"
+      }
+    ]
+  }
+]

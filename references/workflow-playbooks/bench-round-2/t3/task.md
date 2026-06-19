@@ -1,0 +1,2 @@
+Exporte computeTotal(o): number (cents). o = { items: {priceCents:number; qty:number}[]; coupon?: {type:"percent"|"fixed"; value:number}; loyaltyTier:"none"|"silver"|"gold" }.
+Règles DANS CET ORDRE : (1) subtotal=Σ price*qty. (2) coupon sur subtotal : percent→Math.round(sub*(100-value)/100), fixed→Math.max(0,sub-value). (3) loyauté sur le montant post-coupon : silver 5%, gold 10%, none 0% (Math.round). (4) La remise TOTALE est plafonnée à 50% : si le total final est inférieur à floor(subtotal*0.5), le ramener à floor(subtotal*0.5). (5) jamais < 0.
