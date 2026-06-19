@@ -64,6 +64,10 @@ you have to know.
 - **Bounded autonomy.** `scripts/loop-controller.ts` gives hard loop bounds
   (`DONE / MAX_TURNS / DEADLINE / NO_PROGRESS`); `scripts/lib/rule-of-two.ts` refuses unattended
   autonomy when private-data + untrusted-content + outbound-action coexist (lethal-trifecta guard).
+- **Library-mined toolset.** ORCA does not hard-code which skills to use — `strategy-select.ts`
+  **searches a skill library** (resolved via `SKILL_LIBRARY_DIR`) and `install-toolkit.ts`
+  materializes the best-matching skills and agents into the target project's `.claude/`. The
+  reference library holds ~9,300 artifacts from 79 repos (listed under *Skill library* below).
 
 ## Prerequisites
 
@@ -126,13 +130,34 @@ bun run quality      # self-check + smoke + audit threshold + token-hygiene gate
 The project **dogfoods** itself: it never works on its own dirty git tree, and "functional"
 means a script was actually executed — never a green build alone.
 
-## Skill library — upstream sources
+## Skill library — how ORCA searches it, and where it comes from
 
-ORCA can mine a community skill library, resolved via `SKILL_LIBRARY_DIR` (see *Prerequisites*).
-**It bundles none of that content** — point `SKILL_LIBRARY_DIR` at a library you assemble yourself.
-For reference, the library used while developing ORCA aggregated **~9,300 artifacts from the 79
-upstream repositories below**. All credit goes to their authors; consult each repository's own
-license before redistributing any of its content.
+ORCA does not ship a fixed toolset. For each project it **searches a skill library and installs the
+best-matching skills and agents** — a team tailored to the repo, not a generic preset. Point
+`SKILL_LIBRARY_DIR` at a library of `skills/ agents/ hooks/ subagents/ plugins/`, and on `/assistant`:
+
+```text
+  detect project type + brief
+        │
+        ▼
+  strategy-select.ts ──▶ ranks the best-matching skills / agents / hooks
+        │                 across the WHOLE library (by type, keywords, tier)
+        ▼
+  install-toolkit.ts ──▶ copies the top picks into the target project's
+        │                 .claude/skills/ + .claude/agents/  (+ a TOOLKIT_INSTALLED.json receipt)
+        ▼
+  the project is equipped with the tools ORCA actually selected for it
+```
+
+```bash
+bun scripts/strategy-select.ts "<brief>" --type=<type> --write=<path>                    # rank best matches
+bun scripts/install-toolkit.ts <path> --keywords="<brief>" --type=<type> --skills=top:8 --agents=top:6
+```
+
+**ORCA bundles none of the library's content.** For reference, the library used while developing it
+aggregated **~9,300 artifacts from the 79 upstream repositories below** — these are exactly the repos
+ORCA searches. All credit goes to their authors; consult each repository's own license before
+redistributing any of its content.
 
 #### Tier S (10k+ stars)
 - [affaan-m/ECC](https://github.com/affaan-m/ECC) — 187k★, 239 artifacts
